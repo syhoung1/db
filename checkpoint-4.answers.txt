@@ -1,0 +1,64 @@
+1.  SELECT * FROM table;
+
+2.  I remember it as if someone were asking me what costume will I be wearing
+    for halloween. I would have had to have SELECTed a costume FROM a store
+    WHERE the size fits.
+
+3.  SELECT name, gender, age FROM dogs WHERE breed LIKE '%labrador%';
+    SELECT id FROM dogs WHERE age < 1;
+    SELECT name, age FROM dogs WHERE gender = 'F' AND weight > 35;
+    SELECT * FROM dogs WHERE breed NOT LIKE '%shepherd%';
+    SELECT id, age, weight, breed FROM dogs WHERE weight > 65 OR breed LIKE '%great dane%';
+
+4.  SELECT name, adoption_date FROM cats;
+    -This will return the names and adoption dates of all the cats in the cats
+    table.
+
+    SELECT name, age FROM cats;
+    -This will return the names and ages of all the cats in the cats table.
+
+5.  SELECT * FROM cats WHERE adoption_date = null;
+    -Will give us all the cats that don't currently have an adoption dates.
+
+    SELECT DISTINCT age FROM cats;
+    -Displays cats of each age.
+    SELECT DISTINCT age FROM cats WHERE adoption_date = null;
+    -Displays cats of each age that are up for adoption.
+
+    SELECT DISTINCT name FROM cats ORDER BY name ASC;
+
+6.  < - Used when you want to filter out all the things that have a value that's
+        greater than or equaled to the value given. Could be used in an online 
+        shopping site to filter items based on a price ceiling.
+    
+    > - Used to filter out values that are less than. Tax forms have a field
+        for inputing number of dependents. The database could determine all the
+        people who are eligible for a deduction based on the number of
+        dependents by selecting those who have more than 0 dependents.
+        
+    <= - Used to filter out values that are strictly greater than the given
+        value. This could be used by a loan agency to red flag all the 
+        portfolios that have a rating of BBB or less.
+    
+    >= - Used to filter out values that are strictly less than the given value.
+        This could be used by a car dealer ship to find all the cars in
+        inventory that fit x number of passengers or more.
+    
+    = - Used to match values in the table with a given value. In a school portal
+        this could be used to identify all the students who have assignments
+        missing by searching for some boolean value that determines whether an
+        assignments have been turned in.
+    
+    != - Used to return all the rows that do not have a given value. An online
+        clothing shop could use this to return a list of clothes that do not
+        have leather as a material, for example.
+
+7.  SELECT name FROM cats WHERE gender = ‘F’;
+    -returns seashell and nara
+    
+    SELECT name FROM cats WHERE age <> 3;
+    -returns seashell, nara, mushi and victorie
+    
+    SELECT ID FROM cats WHERE name != ‘Mushi’ AND gender = ‘M’;
+    -returns azul and victorie
+        
