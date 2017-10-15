@@ -1,0 +1,94 @@
+1.  To add: INSERT INTO table VALUES values;
+    To update: UPDATE table SET values;
+    To delete: UPDATE table DELETE values;
+
+2.  Adding creates a new row within the given table and populates it with the
+    values passed in.
+    
+    Updating looks for the row in the given table that matches the one that the
+    user is looking for and then updates the data with the values that are
+    passed in.
+    
+    Delete searches for the row in the given table and then deletes the values
+    in the specified columns.
+
+3.  Texts, integers and dates are data types that can be stored. In a
+    hospital's patient database, for example, the patient names could be stored
+    as Texts; the patient's height and weight could be stored as integers; and
+    the patient's last check-in date could be stored as a date.
+
+4.  First and last name would be stored as Text values. RSVPs are boolean
+    values. Number of guests and meals are both integers.
+    
+    CREATE TABLE wedding_tracker (
+        first_name text,
+        last_name text,
+        RSVP boolean,
+        guests integer,
+        meals integer
+    );
+    
+    ALTER TABLE wedding_tracker ADD COLUMN thank_you_card boolean SET DEFAULT false;
+    
+    ALTER TABLE wedding_tracker DROP COLUMN meals;
+    
+    ALTER TABLE wedding_tracker ADD COLUMN table_number integer;
+    
+    DROP TABLE wedding_tracker;
+
+5.  CREATE TABLE library (
+        ISBN integer,
+        title text,
+        author text,
+        genre text,
+        published date, 
+        total_copies int,
+        available_copies int
+    );
+    
+    INSERT INTO library (ISBN, title, author, genre, published, total_copies, available_copies) VALUES 
+    (123124, "IT", "Stephen King", "Horror", 09/23/2000, 1, 1),
+    (123214, "The Hobbit", "J.R.R. Tolkien", "Fiction", 07/13/1999, 1, 1),
+    (129124, "The Bible: New Testament", "David", "Religious", 09/23/0090, 1, 1)
+    
+    UPDATE library SET available_copies = available_copies - 1 WHERE title = "IT";
+    DELETE FROM library WHERE title = "IT";
+
+6.  CREATE TABLE spacecraft (
+        id integer,
+        name text,
+        orbiting text,
+        country text,
+        description text,
+        operating boolean,
+        distance integer
+    );
+    
+    INSERT INTO spacecraft (id, name, orbiting, country, description, operating, distance) VALUES 
+    (1, "Noah", "Mars", "U.S.", "Mars satellite", true, 54600000),
+    (2, "Tanaka", "Pluto", "Japan", "Pluto explorer", true, 7500000000),
+    (3, "Xinwei", "Mars", "China", "1 up on U.S. satellite", true, 54600000);
+    
+    DELETE FROM spacecraft WHERE id = 3;
+    
+    UPDATE spacecraft SET operating = false WHERE id = 1;
+
+7.  CREATE TABLE inbox (
+        id integer,
+        subject varchar(140),
+        sender text,
+        recipients array,
+        body text,
+        read boolean,
+        time_stamp timestamp,
+        chain_id
+    );
+    
+    INSERT INTO inbox (id, subject, sender, recipients, body, read, chain_id) VALUES 
+    (1, nil, "Eric", {"John"}, "Hello", false, 1),
+    (2, nil, "Sara", {"John"}, "Hi", false, 2),
+    (3, nil, "John", {"Sara"}, "Howdy", false, 1);
+    
+    DELETE FROM inbox WHERE id = 2;
+    
+    UPDATE inbox SET recipients = {"Jay"} WHERE id = 3;
