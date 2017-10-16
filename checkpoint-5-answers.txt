@@ -80,3 +80,11 @@
      FROM payment
      GROUP BY user
      HAVING SUM (amount) > 200;
+
+8.  SELECT * FROM cats ORDER BY intake_date;
+    SELECT * FROM adoptions ORDER BY date ASC LIMIT 5;
+    SELECT * FROM cats GROUP BY gender HAVING gender = 'F' AND age > 2;
+    SELECT DISTINCT donor, SUM(amount) FROM donations GROUP BY donor ORDER BY SUM(amount) DESC LIMIT 5;
+    SELECT DISTINCT donor, SUM(amount) FROM donations GROUP BY donor ORDER BY SUM(amount) DESC LIMIT 5 OFFSET 5;
+    
+    
