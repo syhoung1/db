@@ -1,0 +1,98 @@
+1.  In order to find data that's spread between two tables you could combine the
+    two tables first before you look for the data.
+
+2.  A cross join will combine the given column or columns in the first table
+    with all of the columns in the table it's joining with. Cross joins could be
+    used on a table full of proteins and a table full of vegetables, the
+    resulting table could serve as inspiration for new dishes.
+    
+    An inner join will give you rows in which the columns from both tables
+    satisfy some condition. Inner joins could be used to match checked out books
+    and its borrower in a library database.
+    
+    A left outer join combines all of the rows from the first table and only the
+    rows from the second table which satisfy some condition. A right outer join 
+    combines all of the rows of table that's being joined and only the rows from
+    the first table that satisfy some condition. Both of these could be used to
+    see which employees from one department could be moved to a different
+    department based on qualifications and credentials.
+    
+    A full outer join gives you rows in which both a row from the left table
+    and the right table satisfy some condition. This is then combined with all
+    of the rows in the left table as well as the right table. A full outer join
+    could be used to match potential pet owners and animals in a shelter that
+    haven't been adopted yet.
+
+3.  A primary key is a unique identifier that exists for each row in a table. In
+    essence it indexes every row in the table. A foreign key is the primary key
+    in one table that is used to associate rows in a second table with the rows
+    in the first table. In a POS system the primary key would be an id assigned
+    to every customer. That primary key could then be used as the foreign key
+    of all the orders, which allows the system to match customers with their
+    orders.
+
+4.  Aliasing is giving a table a simpler or shorter identifying name.
+
+5.  SELECT p.name, c.salary, c.vacation_days 
+    FROM professor AS p
+    JOIN compensation AS c
+    ON professor.id = compensation.professor_id;
+    
+6.  Natural joins could be used by hospitals to match the blood types of donors
+    and patients.
+
+7.  SELECT * FROM employees OUTER JOIN shifts;
+    SELECT * FROM employees CROSS JOIN shifts;
+
+8.  SELECT * FROM volunteers
+    LEFT OUTER JOIN dogs
+    ON volunteers.name = dogs.in_foster;
+    
+    SELECT adopters.name, adoptions.dog, adoptions.cat
+    FROM adopters
+    JOIN adoptions
+    ON adoptions.adopter = adopters.name AND adoption.date >= DATEADD(day, -30, getDate())
+    ORDER BY adoption.date;
+    
+    SELECT * FROM adopters
+    CROSS JOIN dogs
+    ON adoptions.adopter != adopters.name;
+    
+    SELECT * FROM dogs, cats
+    FULL OUTER JOIN adoptions;
+    
+    SELECT * FROM volunteers
+    FULL OUTER JOIN dogs
+    ON volunteers.foster_id = dogs.id;
+
+9.  SELECT adoptions.adopter
+    FROM adoptions
+    JOIN cats
+    ON cats.name = "Seashell" AND cats.name = adoptions.cats;
+
+10. SELECT patrons.name, holds.rank
+    FROM patrons
+    JOIN holds
+    ON patrons.id = holds.user_id
+    ORDER BY holds.rank ASC;
+
+    SELECT books.title, transactions.checked_out_date
+    FROM books
+    LEFT INNER JOIN transactions
+    ON books.isbn = transactions.isbn
+    
+    SELECT SUM(transactions.checked_in_date - transactions.checked_out_date), books.title
+    FROM books
+    JOIN transactions
+    ON transactions.isbn = books.isbn AND transactions.checked_out_date <= DATEADD(day, -30, getDate())
+    GROUP BY books.isbn;
+    
+    SELECT books.title
+    FROM books
+    JOIN transactions
+    ON transactions.isbn = books.isbn AND YEAR(CURDATE()) - YEAR(transactions.checked_in_date) > 5;
+    
+    SELECT * FROM patrons, books
+    JOIN transactions
+    ON transactions.user_id = patrons.id AND transactions.isbn = books.isbn;
+    
