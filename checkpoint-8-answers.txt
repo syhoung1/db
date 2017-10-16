@@ -1,0 +1,38 @@
+1.  Normalizing data benefits performance in many ways. Queries in a normalized
+    database are simpler and the data is organized in a way that there is less
+    ambiguity. In a very simplified version of a hospital's database, for
+    example, you could have a patients table with name, ailment, doctor 
+    and specialization_department. You would want to normalize this table by
+    separating doctor and specialization_department columns into their own
+    table. This eliminates redundancies in the tables because one doctor has
+    many different patients, and rather than listing the same doctor multiple
+    times, we could just add some sort of reference from patient to doctor based
+    on the ailment.
+
+2.  1NF states that there cannot be multiple values in a column of a row. This
+    eliminates inconsistencies. If you had a patient with a list of ailments,
+    you would not want them in the same row because you could end up getting
+    different results while you're searching for that patient.
+
+    2NF states that columns cannot be dependent on another column that isn't the
+    primary key in addition to the table satisfying 1NF. In the hospital patient
+    database, you would not want to query the patients table for information
+    about the doctor because it is more complicated and makes less logical
+    sense.
+    
+    3NF states that a table needs to be 2NF, and columns cannot be transitively
+    related to another column that isn't the primary key. Like in 2NF, you would
+    not want to query the patients table for what doctor is in what department
+    since it overcomplicates the query.
+
+3.  We would separate this table into 5 tables as follows:
+    1. students [student_id, student_name]
+    2. emails [student_name, student_email]
+    3. grades [entry_id, grade]
+    4. professors [professor_id, professor]
+    5. subjects [professor, subject]
+
+4.  Normalizing would make it easier to update and sort. However, querying based
+    on more than one parameter becomes cumbersome. If you wanted the grades of
+    all the students as well as the subjects they got the grades in, you'd have
+    to join three tables before you could have a complete result.
