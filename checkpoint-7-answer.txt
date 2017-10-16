@@ -1,0 +1,50 @@
+1.  SELECT * FROM guests
+    LEFT OUTER JOIN bookings
+    ON guests.id = bookings.guest_id;
+
+    SELECT * FROM bookings
+    JOIN guests ON guests.id = bookings.guest_id
+    JOIN rooms ON rooms.id = bookings.room_id
+    WHERE bookings.checked_in_date = example_date;
+
+    SELECT * FROM bookings
+    JOIN guests ON guests.id = bookings.guest_id
+    JOIN rooms ON rooms.id = bookings.room_id;
+
+    SELECT COUNT(DISTINCT guests)
+    FROM guests
+    JOIN bookings ON guests.id = bookings.guest_id
+    JOIN rooms ON rooms.id = bookings.room_id;
+
+2.  The students entity will have basic information about a student, namely name
+    and email stored as texts.
+    
+    The classes entity will have information such as name and subject stored as
+    texts as well.
+    
+    To connect the two we would need an enrollment entity that keeps track of
+    information about students within a class. Letter grades could be stored as
+    text and percentage grades could be stored as a float.
+    
+3.  SELECT * FROM students
+    JOIN enrollment ON students.id = enrollment.student_id
+    JOIN classes ON enrollment.class_id = class.id AND class.name = target_name;
+
+    SELECT COUNT(grades), grades
+    FROM classes
+    JOIN enrollment ON class.id = enrollment.class_id
+    GROUP BY grades
+    ORDER BY grades DESC;
+
+    SELECT class.name, COUNT(students)
+    FROM enrollment
+    JOIN students ON student.id = enrollment.student_id
+    JOIN class ON class.id = enrollment.class_id
+    
+    SELECT MAX(COUNT(students)), class
+    FROM enrollment
+    JOIN class ON enrollment.id = enrollment.class_id
+    GROUP BY class;
+    
+
+    
