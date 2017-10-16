@@ -1,0 +1,82 @@
+1.  min - Finds the minimum value in a column. An online shop could use this to
+         find the cheapest item in the inventory.
+    
+    max - Finds the maximum value in a column. A car dealership could use this
+        to find the model of car in their inventory that has the best MPG.
+          
+    average - Computes an average of all the values in a column. Salary sites
+        could average all the salaries in a specific job field and present that
+        data to clients.
+    
+    sum - Computes the sum of all the values in a column. Could be used to give
+        the length of all songs in a music library.
+    
+    count - Computes the number of rows in a column. This could be used by
+        venues to give a count of all the people in attendance at any events.
+
+2.  Total donations: 993
+    
+       donor    | sum
+    ------------+-----
+     Arya       |  60
+     Bran       |  25
+     Brienne    |  75
+     Bronn      |  20
+     Daario     |  10
+     Daenerys   | 173
+     Gilly      |   7
+     Jon        |  25
+     Margaery   | 120
+     Melisandre |  45
+     Missandei  |  90
+     Petyr      |  70
+     Samwell    |  20
+     Sansa      |  33
+     Theon      |  20
+     Tormund    |  50
+     Tyrion     | 120
+     Ygritte    |  30
+          
+       donor    |         avg
+    ------------+----------------------
+     Arya       |  20
+     Bran       |  25
+     Brienne    |  75
+     Bronn      |  20
+     Daario     |  10
+     Daenerys   |  86.5
+     Gilly      |   7
+     Jon        |  25
+     Margaery   | 120
+     Melisandre |  45
+     Missandei  |  22.5
+     Petyr      |  70
+     Samwell    |  20
+     Sansa      |  33
+     Theon      |  10
+     Tormund    |  50
+     Tyrion     |  40
+     Ygritte    |  30
+    
+    There are two donations over $100.
+    
+    The largest single donation was $120.
+    
+    The smallest single donation was $5.
+
+3.  You could determine the display order of the rows you're given by appending
+    ORDER BY at the end of your select statement.
+    
+4.  OFFSET could be used to select the first 10 qualifying winners in a
+    sweepstake or giveaway.
+
+5.  If you don't use ORDER BY you could end up with different results every
+    time you SELECT.
+
+6.  HAVING filters out results after they have been grouped by an aggregate
+    function, whereas WHERE would filter out before.
+
+7.   SELECT id, SUM (amount)
+     FROM payment
+     GROUP BY user
+     HAVING SUM (amount) > 200;
