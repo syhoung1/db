@@ -1,0 +1,111 @@
+1.  A subquery is a query within a query. It selects under some constraints, and
+    then queries the databased based on the rows returned under that selects
+    command.
+
+2.  Subqueries can be used within the FROM or WHERE statements.
+
+3.  Subqueries are more readable than JOIN statements when you're querying from
+    more than one table.
+
+4.  A row constructor is a row that a subquery matches the data against. It is
+    based on the conditions given.
+
+5.  If any of the rows being queried returns a NULL, then the result from
+    querying those rows will also be null.
+
+6.  IN: If the query finds a row in the table that matches with the conditions,
+        then this will return true.
+    NOT IN: This will return true if the query does not find a row in the table
+        with the given conditions.
+    EXISTS: This will return true if the result table has a row that satisfies
+        the given conditions
+    NOT EXISTS: If the query result does not have a row that satisfies the
+        conditions, then this will return true
+    ANY: If there's a row that matches the conditions, this will return true 
+    SOME: Same as any
+    ALL: If everything or nothing from the results of the query matches the
+        given conditions, then this will be true
+
+7.  SELECT * FROM employees
+        (SELECT * FROM shifts);
+        
+    SELECT * FROM employees
+    CROSS JOIN shifts;
+
+8.  SELECT * FROM volunteers, dogs
+        (SELECT * FROM dogs
+         WHERE volunteers.foster_id = dogs.id);
+    
+    SELECT adopters.first_name FROM adoptions
+        (SELECT dogs.name, cats.name
+         WHERE adoptions.cat = cats.name OR adoptions.dog = dog.name)
+    WHERE
+        adoptions.adopter = "#{adopters.first_name} #{adopters.last_name}" 
+        AND adoptions.date >= DATEADD(day, -30, getDate())
+    ORDER BY adoptions.date ASC;
+
+    SELECT * FROM adopters
+    WHERE dogs.name NOT IN (
+        SELECT * FROM dogs
+        WHERE adoptions.dog = dogs.name
+        );
+    
+    SELECT * FROM dogs
+        (SELECT * FROM cats
+         WHERE cats.adoption_date = null)
+    WHERE dogs.name IN
+        (SELECT adoptions.dogs FROM adoptions);
+    
+    SELECT * FROM volunteers, dogs
+        (SELECT * FROM dogs
+         WHERE volunteers.foster_id = dogs.id);
+    
+9.  SELECT adopters.first_name FROM adopters
+        (SELECT * FROM cats
+         WHERE cats.name = "Seashell")
+    WHERE adoptions.cat = "Seashell" AND adoptions.adopter = "#{adopters.first_name} #{adopters.last_name}";
+
+10. SELECT patrons.name
+        (SELECT holds.rank FROM holds
+         WHERE patrons.id = holds.user_id)
+    ORDER BY holds.rank ASC;
+
+    SELECT books.title
+        (SELECT transactions.checked_out_date FROM transactions
+         WHERE books.isbn = transactions.isbn)
+    
+    SELECT SUM(transactions.checked_in_date - transactions.checked_out_date)
+    FROM transactions
+        (SELECT books.title FROM books
+         WHERE transactions.isbn = books.isbn AND transactions.checked_out_date <= DATEADD(day, -30, getDate())
+    GROUP BY books.isbn;
+
+    SELECT books.title FROM books
+        (SELECT * FROM transactions
+         WHERE transactions.isbn = books.isbn AND YEAR(CURDATE()) - YEAR(transactions.checked_in_date) > 5;
+    
+    SELECT * FROM patrons, books
+        (SELECT * FROM transactions
+         WHERE transactions.user_id = patrons.id AND transactions.isbn = books.isbn);
+
+11. SELECT flights.airplane_model FROM flights
+        (SELECT transactions.seats_sold FROM transactions
+         WHERE transactions.seats_sold > 100 AND transactions.flight_number = flights.flight_number);
+    WHERE transactions.date <= DATEADD(day, -30, getDate());
+         
+    SELECT flights.destination, flights.origin FROM flights
+    WHERE flights.flight_number IN
+        (SELECT * FROM transactions
+            (SELECT * FROM airplanes
+             WHERE flights.airplane_model = airplanes.model
+                AND flights.flight_number = transactions.flight_number)
+         WHERE transactions.seats_sold / airplanes.seat_capacity > .9);
+
+    SELECT SUM(transactions.total_revenue) FROM transactions
+        (SELECT * FROM flights
+         WHERE flights.origin = "Atlanta" OR flights.destination = "Atlanta")
+    WHERE flights.flight_number = transactions.flight_number;
+
+12. For the most part, if the query required some sort of inner join, it was
+    more readable when written with subqueries. If you wanted a combination
+    of all possibilities though, it was better to use cross joins.
